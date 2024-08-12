@@ -78,6 +78,21 @@ elif submit3:
     if uploaded_file is not None:
         pdf_content=input_pdf_setup(uploaded_file)
         response=get_gemini_response(input_prompt3,pdf_content,input_text)
+
+        percentage_match = None  # Extract this from `response` using appropriate parsing
+        for line in response.splitlines():
+            if line.strip().endswith('%'):
+                percentage_match = int(line.strip().replace('%', ''))
+                break
+
+        # Display the percentage match with a progress bar
+        if percentage_match is not None:
+            st.subheader(f"Resume Match: {percentage_match}%")
+            st.progress(percentage_match / 100)  # Progress bar
+        else:
+            st.write("Couldn't determine the percentage match.")
+
+
         st.subheader("The Repsonse is")
         st.write(response)
     else:
