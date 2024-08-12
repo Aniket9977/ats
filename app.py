@@ -6,6 +6,7 @@ import streamlit as st
 import os
 import io
 from PIL import Image 
+import fitz
 import pdf2image
 import google.generativeai as genai
 api_key=os.getenv('GOOGLE_API_KEY')
@@ -19,20 +20,14 @@ def get_gemini_response(input,pdf_cotent,prompt):
 
 def input_pdf_setup(uploaded_file):
     if uploaded_file is not None:
-        images=pdf2image.convert_from_bytes(uploaded_file.read())
+        pdf_document = fitz.open(stream=uploaded_file.read(), filetype="pdf")
+        pdf_text = ""
 
-        first_page=images[0]
-        img_byte_arr = io.BytesIO()
-        first_page.save(img_byte_arr, format='JPEG')
-        img_byte_arr = img_byte_arr.getvalue()
+        for page_num in range(len(pdf_document)):
+            page = pdf_document.load_page(page_num)
+            pdf_text += page.get_text()
 
-        pdf_parts = [
-            {
-                "mime_type": "image/jpeg",
-                "data": base64.b64encode(img_byte_arr).decode()  # encode to base64
-            }
-        ]
-        return pdf_parts
+        return pdf_text
     else:
         raise FileNotFoundError("No file uploaded")
 
