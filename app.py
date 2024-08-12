@@ -19,12 +19,9 @@ def get_gemini_response(input,pdf_cotent,prompt):
 
 def input_pdf_setup(uploaded_file):
     if uploaded_file is not None:
-        ## Convert the PDF to image
         images=pdf2image.convert_from_bytes(uploaded_file.read())
 
         first_page=images[0]
-
-        # Convert to bytes
         img_byte_arr = io.BytesIO()
         first_page.save(img_byte_arr, format='JPEG')
         img_byte_arr = img_byte_arr.getvalue()
@@ -39,7 +36,6 @@ def input_pdf_setup(uploaded_file):
     else:
         raise FileNotFoundError("No file uploaded")
 
-## Streamlit App
 
 st.set_page_config(page_title="ATS Resume EXpert")
 st.header("ATS Tracking System")
@@ -86,11 +82,3 @@ elif submit3:
         st.write(response)
     else:
         st.write("Please uplaod the resume")
-
-
-
-   
-
-
-
-
