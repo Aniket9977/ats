@@ -32,7 +32,7 @@ def input_pdf_setup(uploaded_file):
         raise FileNotFoundError("No file uploaded")
 
 
-st.set_page_config(page_title="ATS Resume EXpert")
+st.set_page_config(page_title="ATS Resume Expert")
 st.header("ATS Tracking System")
 input_text=st.text_area("Job Description: ",key="input")
 uploaded_file=st.file_uploader("Upload your resume(PDF)...",type=["pdf"])
@@ -49,9 +49,17 @@ submit1 = st.button("Tell Me About the Resume")
 submit3 = st.button("Percentage match")
 
 input_prompt1 = """
- You are an experienced Technical Human Resource Manager,your task is to review the provided resume against the job description. 
-  Please share your professional evaluation on whether the candidate's profile aligns with the role. 
- Highlight the strengths and weaknesses of the applicant in relation to the specified job requirements.
+ You are a seasoned Technical Human Resource Manager with deep expertise in matching candidates to technical roles. Your task is to thoroughly analyze the provided resume against the detailed job description. Evaluate the candidate's technical skills, relevant experience, education, and any industry certifications. Specifically, focus on:
+
+1. **Technical Competencies:** Assess how well the candidate's technical skills align with the job requirements. Highlight any advanced skills or certifications that stand out, as well as any critical technical gaps.
+
+2. **Professional Experience:** Evaluate the relevance and depth of the candidate's past experience in relation to the job. Consider the scope of their responsibilities, key achievements, and any leadership or team collaboration experience.
+
+3. **Cultural Fit and Soft Skills:** Analyze the candidate's soft skills, such as communication, problem-solving, and adaptability. Consider how well their personality and work style might fit with the company culture.
+
+4. **Potential for Growth:** Comment on the candidate's potential for growth within the role and the organization. Identify any areas where they may need additional training or support.
+
+Provide a final recommendation on whether the candidate should advance to the next stage of the hiring process, along with specific reasons for your decision.
 """
 
 input_prompt3 = """
